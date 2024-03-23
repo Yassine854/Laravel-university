@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RoleSeeder::class);
-        User::create(['name' => 'admin','email' => 'admin@test.com','password' => Hash::make("admin@test.com"),'role_id' => 1,]);
+        User::create(['name' => 'admin','last_name' => 'admin','email' => 'admin@test.com','password' => Hash::make("admin@test.com"),'role_id' => 1,]);
     }
 }

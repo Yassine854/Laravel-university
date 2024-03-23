@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
+            {{ __('Profil') }}
         </h2>
     </x-slot>
 
@@ -24,7 +24,7 @@
 
 
             @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-                
+
 
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.delete-user-form')

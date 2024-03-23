@@ -19,6 +19,9 @@ class ProfileInformationTest extends TestCase
         $component = Livewire::test(UpdateProfileInformationForm::class);
 
         $this->assertEquals($user->name, $component->state['name']);
+        $this->assertEquals($user->last_name, $component->state['last_name']);
+        $this->assertEquals($user->address, $component->state['address']);
+        $this->assertEquals($user->phone, $component->state['phone']);
         $this->assertEquals($user->email, $component->state['email']);
     }
 
