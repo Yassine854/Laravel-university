@@ -30,5 +30,10 @@ Route::group(['middleware' => 'auth'], function() {
    });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+        Route::resource('news', \App\Http\Controllers\Admin\NewController::class);
+        Route::resource('subjects', \App\Http\Controllers\Admin\SubjectController::class);
+        Route::resource('departments', \App\Http\Controllers\Admin\DepartmentController::class);
+        Route::resource('fields', \App\Http\Controllers\Admin\FieldController::class);
+
     });
 });
