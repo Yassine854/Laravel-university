@@ -20,6 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('Nbureau')->nullable();
+            $table->string('groupe')->nullable();
+            $table->unsignedBigInteger('field_id')->nullable();;
+            $table->foreign('field_id')->references('id')->on('fields');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

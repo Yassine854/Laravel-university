@@ -29,9 +29,11 @@ class User extends Authenticatable
         'address',
         'Nbureau',
         'phone',
+        'groupe',
         'email',
         'password',
         'role_id',
+        'field_id',
         'student_address',
         'student_licence_number',
         'teacher_qualifications',
@@ -66,4 +68,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function field()
+    {
+        return $this->belongsTo(Field::class);
+    }
 }
