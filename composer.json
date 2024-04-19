@@ -16,7 +16,8 @@
         "laravel/jetstream": "^2.1",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
-        "livewire/livewire": "^2.12"
+        "livewire/livewire": "^2.12",
+        "spatie/laravel-route-discovery": "^1.0"
     },
     "require-dev": {
         "arielmejiadev/jetbar": "^3.0",

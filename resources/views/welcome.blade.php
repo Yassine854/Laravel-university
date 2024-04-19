@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>E-learning - E-learning HTML Template</title>
+    <title>ISSAT</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -43,16 +43,16 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>E-learning</h2>
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>ISSATSo</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="courses.html" class="nav-item nav-link">Courses</a>
+                <a href="index.html" class="nav-item nav-link active">Acceuil</a>
+                <a href="about.html" class="nav-item nav-link">À propos</a>
+                <a href="courses.html" class="nav-item nav-link">Cours</a>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
 
@@ -83,9 +83,9 @@
                         <div class="row justify-content-start">
                             <div class="col-sm-10 col-lg-8">
                                 <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
-                                <h1 class="display-3 text-white animated slideInDown">The Best Online Learning Platform</h1>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                <h1 class="display-3 text-white animated slideInDown">Bienvenue à ISSATSo</h1>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">En savoir plus</a>
+                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Nos Formations</a>
                             </div>
                         </div>
                     </div>

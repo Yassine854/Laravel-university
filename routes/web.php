@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function() {
        Route::resource('courses', \App\Http\Controllers\Teachers\CourseController::class);
    });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
-        Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+        // Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
         //Admins
         Route::get('admins', [\App\Http\Controllers\Admin\UserController::class, 'indexAdmin'])->name('users.indexAdmin');
         Route::post('admins/create', [\App\Http\Controllers\Admin\UserController::class, 'createAdmin'])->name('users.createAdmin');
@@ -47,6 +47,15 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('students/{user}/updateStudent', [\App\Http\Controllers\Admin\UserController::class, 'updateStudent'])->name('users.updateStudent');
         Route::delete('students/{user}/destroyStudent', [\App\Http\Controllers\Admin\UserController::class, 'destroyStudent'])->name('users.destroyStudent');
         Route::get('students/{user}/show', [\App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
+
+        //Emplois du temps pour Etudiants
+        Route::get('timetables/departments', [\App\Http\Controllers\Admin\TimetableController::class, 'indexDepartments'])->name('timetables.departments');
+        Route::get('timetables/{department}/fields', [\App\Http\Controllers\Admin\TimetableController::class, 'indexFields'])->name('timetables.fields');
+        Route::get('timetables/{department}/{field}', [\App\Http\Controllers\Admin\TimetableController::class, 'indexStudentsTimetable'])->name('timetables.StudentsTimetable');
+
+        Route::post('timetables/students/create', [\App\Http\Controllers\Admin\TimetableController::class, 'createStudentsTimetable'])->name('timetables.createStudentsTimetable');
+
+
 
         Route::resource('news', \App\Http\Controllers\Admin\NewController::class);
         Route::resource('subjects', \App\Http\Controllers\Admin\SubjectController::class);
