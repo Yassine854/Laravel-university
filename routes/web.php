@@ -52,8 +52,11 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('timetables/departments', [\App\Http\Controllers\Admin\TimetableController::class, 'indexDepartments'])->name('timetables.departments');
         Route::get('timetables/{department}/fields', [\App\Http\Controllers\Admin\TimetableController::class, 'indexFields'])->name('timetables.fields');
         Route::get('timetables/{department}/{field}', [\App\Http\Controllers\Admin\TimetableController::class, 'indexStudentsTimetable'])->name('timetables.StudentsTimetable');
-
         Route::post('timetables/students/create', [\App\Http\Controllers\Admin\TimetableController::class, 'createStudentsTimetable'])->name('timetables.createStudentsTimetable');
+        Route::put('timetables/{department}/{field}/{id}', [\App\Http\Controllers\Admin\TimetableController::class, 'updateStudentsTimetable'])->name('timetables.updateStudentsTimetable');
+        Route::get('timetables/{fileName}', [\App\Http\Controllers\Admin\TimetableController::class, 'downloadStudentsTimetable'])->name('timetables.downloadStudentsTimetable');
+
+        Route::delete('timetables/{department}/{field}/{id}', [\App\Http\Controllers\Admin\TimetableController::class, 'destroyStudentsTimetable'])->name('timetables.destroyStudentsTimetable');
 
 
 
