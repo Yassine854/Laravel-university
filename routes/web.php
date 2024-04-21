@@ -54,9 +54,14 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('timetables/{department}/{field}', [\App\Http\Controllers\Admin\TimetableController::class, 'indexStudentsTimetable'])->name('timetables.StudentsTimetable');
         Route::post('timetables/students/create', [\App\Http\Controllers\Admin\TimetableController::class, 'createStudentsTimetable'])->name('timetables.createStudentsTimetable');
         Route::put('timetables/{department}/{field}/{id}', [\App\Http\Controllers\Admin\TimetableController::class, 'updateStudentsTimetable'])->name('timetables.updateStudentsTimetable');
-        Route::get('timetables/{fileName}', [\App\Http\Controllers\Admin\TimetableController::class, 'downloadStudentsTimetable'])->name('timetables.downloadStudentsTimetable');
-
+        Route::get('timetables/{fileName}', [\App\Http\Controllers\Admin\TimetableController::class, 'downloadTimetable'])->name('timetables.downloadTimetable');
         Route::delete('timetables/{department}/{field}/{id}', [\App\Http\Controllers\Admin\TimetableController::class, 'destroyStudentsTimetable'])->name('timetables.destroyStudentsTimetable');
+
+        //Emplois du temps pour enseignants
+        Route::get('teachers/timetables', [\App\Http\Controllers\Admin\TimetableController::class, 'indexTeachersTimetable'])->name('timetables.TeachersTimetable');
+        Route::post('timetables/teachers/create', [\App\Http\Controllers\Admin\TimetableController::class, 'createTeachersTimetable'])->name('timetables.createTeachersTimetable');
+        Route::put('timetables/{id}', [\App\Http\Controllers\Admin\TimetableController::class, 'updateTeachersTimetable'])->name('timetables.updateTeachersTimetable');
+        Route::delete('timetables/{id}', [\App\Http\Controllers\Admin\TimetableController::class, 'destroyTeachersTimetable'])->name('timetables.destroyTeachersTimetable');
 
 
 

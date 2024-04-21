@@ -15,5 +15,12 @@ class Timetable extends Model
         'field_id',
         'group',
         'role_id',
+        'teacher_id'
     ];
+
+
+    public function teacher()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

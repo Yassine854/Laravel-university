@@ -2,9 +2,7 @@
 
 
     <x-slot name="header">
-           Département: {{ $departmentName}} <br> <br>
-           Filiére: {{ $fieldName }} <br> <br>
-           Emplois du temps des étudiants
+           Emplois du temps des enseignants
     </x-slot>
 
     <x-jet-bar-container>
@@ -40,7 +38,7 @@
                         <!-- Modal Body -->
                         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <!-- Your form content goes here -->
-                            <form action="{{ route('admin.timetables.createStudentsTimetable') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.timetables.createTeachersTimetable') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -55,31 +53,32 @@
 
 
                                 <div class="mb-4">
-                                    <label for="group" class="block text-sm font-medium text-gray-700">Groupe</label>
-                                    <select name="group" id="groupe_id"
+                                    <label for="teacher_id" class="block text-sm font-medium text-gray-700">Enseignant</label>
+                                    <select name="teacher_id" id="teacher_id"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                        <option value="">Tous les groupes</option> <!-- Option for showing all groups -->
+                                        <option value="">Tous les enseignants</option> <!-- Option for showing all teachers -->
 
-                                        <!-- Iterate through group numbers from 1 to 4 -->
-                                        @for ($i = 1; $i <= 4; $i++)
-                                            <!-- Check if the group number exists in $timetables -->
-                                            @if (!$timetables->contains('group', $i))
-                                                <!-- If the group number does not exist, show it as an option -->
-                                                <option value="{{ $i }}">Groupe {{ $i }}</option>
-                                            @endif
-                                        @endfor
+                                        @php
+                                            $allTeacherIdsInTimetable = $timetables->pluck('teacher_id')->flatten()->unique();
+                                        @endphp
+
+                                        @foreach ($teachers as $teacher)
+                                            @unless ($allTeacherIdsInTimetable->contains($teacher->id))
+                                                <option value="{{ $teacher->id }}">{{ $teacher->name }} {{ $teacher->last_name }}</option> <!-- Option for showing teachers not in any timetable -->
+                                            @endunless
+                                        @endforeach
                                     </select>
                                 </div>
+
+
 
 
                                 <!-- File upload input -->
                                 <div class="mb-4">
                                     <label for="file" class="block text-sm font-medium text-gray-700">Emploi du temps (PDF)</label>
                                     <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file" type="file" name="file">
-
                                 </div>
-                                <input type="hidden" name="department_id" value="{{ $department }}">
-                                <input type="hidden" name="field_id" value="{{ $field }}">
+
 
 
                                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -117,7 +116,7 @@
 
 
 
-            <x-jet-bar-table :headers="['ID','Groupe','Created_at','', '','']" class="flex justify-center">
+            <x-jet-bar-table :headers="['ID','Enseignant','Created_at','', '','']" class="flex justify-center">
                 <template x-data="{ total:1 }"  x-for="index in total">
                     @foreach($timetables as $timetable)
                     <tr class="hover:bg-gray-50">
@@ -126,7 +125,7 @@
                         </x-jet-bar-table-data>
 
                         <x-jet-bar-table-data>
-                          Groupe {{ $timetable->group }}
+                            {{ $timetable->teacher->name }} {{ $timetable->teacher->last_name }}
                         </x-jet-bar-table-data>
 
                         <x-jet-bar-table-data>
@@ -174,7 +173,7 @@
                 <!-- Modal Body -->
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <!-- Your form content goes here -->
-                    <form action="{{ route('admin.timetables.updateStudentsTimetable', ['department' => $department,'field' => $field,'id'=>$timetable->id]) }}" method="POST">
+                    <form action="{{ route('admin.timetables.updateTeachersTimetable', ['id'=>$timetable->id]) }}" method="POST">
                         @method('PUT')
                         @csrf
                         @if ($errors->any())
@@ -188,18 +187,21 @@
                         </div>
                         @endif
 
-                        <div class="mb-4">
-                            <label for="group" class="block text-sm font-medium text-gray-700">Groupe</label>
-                            <select name="group" id="group" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                <!-- Loop through options -->
-                                <option value="{{ $timetable->group}}">Groupe {{ $timetable->group }}</option>
 
-                                @for ($i = 1; $i <= 4; $i++)
-                                    <!-- Exclude the current value from being repeated -->
-                                    @if ($i != $timetable->group)
-                                        <option value="{{ $i }}">Groupe {{ $i }}</option>
+                        <div class="mb-4">
+                            <label for="teacher_id" class="block text-sm font-medium text-gray-700">Enseignant</label>
+                            <select name="teacher_id" id="teacher_id"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <option value="{{ $timetable->teacher->id}}">{{ $timetable->teacher->name }} {{ $timetable->teacher->last_name }}</option>
+
+                                @foreach ($teachers as $teacher )
+
+                                @if ($teacher->id != $timetable->teacher->id)
+                                <option value="{{ $teacher->id }}">{{ $teacher->name }} {{ $teacher->last_name }}</option> <!-- Option for showing all groups -->
                                     @endif
-                                @endfor
+
+
+                                @endforeach
                             </select>
                         </div>
 
@@ -215,9 +217,6 @@
                                 <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file" type="file" name="file">
                             @endif
                         </div>
-
-                        <input type="hidden" name="department_id" value="{{ $department }}">
-                        <input type="hidden" name="field_id" value="{{ $field }}">
 
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                             <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Modifier</button>
@@ -255,7 +254,7 @@
                                                     <h3 class="text-lg font-medium text-gray-900">Confirmer suppression</h3>
                                                 </div>
                                                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                                    <form :action="`{{ route('admin.timetables.destroyStudentsTimetable', ['department' => $department,'field' => $field,'id'=>$timetable->id]) }}`" method="POST">
+                                                    <form :action="`{{ route('admin.timetables.destroyTeachersTimetable', ['id'=>$timetable->id]) }}`" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <p class="text-sm text-gray-500">Etes-vous sûr que vous voulez supprimer cet emploi du temps?</p>

@@ -20,6 +20,8 @@ class CreateTimetablesTable extends Migration
             $table->string('field_id')->nullable();
             $table->string('group')->nullable();
             $table->string('role_id');
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->foreign('teacher_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

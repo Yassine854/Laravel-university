@@ -7,6 +7,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Facade\FlareClient\Time\Time;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -40,10 +41,6 @@ class TimetableController extends Controller
         $fieldName=Field::where('id',$field)->first()->name ?? null;
         return view('admin.timetables.student.timetables', ['timetables'=>$timetables,'department' => $department,'field' => $field,'departmentName' => $departmentName,'fieldName'=>$fieldName]);
     }
-
-
-
-
 
 
 
@@ -157,7 +154,7 @@ class TimetableController extends Controller
         return redirect()->route('admin.timetables.StudentsTimetable', ['department' => $department,'field'=>$field])->with('warning', 'Emploi du temps mis a jours avec succées !');
     }
 
-    public function downloadStudentsTimetable($fileName)
+    public function downloadTimetable($fileName)
     {
         // Get the file path
         $filePath = storage_path('app/public/timetables/' . $fileName);
@@ -181,6 +178,132 @@ class TimetableController extends Controller
     // Return a success response with a success message
     return redirect()->route('admin.timetables.StudentsTimetable', ['department' => $department,'field'=>$field])->with('danger', 'Emploi du temps supprimé avec succées !');
 }
+
+
+
+
+public function indexTeachersTimetable()
+    {
+        $timetables = Timetable::where('role_id', 3)->with('teacher')->get();
+        $teachers=User::where('role_id', 3)->get();
+        return view('admin.timetables.teacher.timetables', ['timetables'=>$timetables,'teachers' => $teachers]);
+    }
+
+
+
+    public function createTeachersTimetable(Request $request)
+    {
+
+        Session::put('form_type', 'create');
+
+
+        $rules = [
+            'teacher_id'=> 'required',
+            'file' => 'required',
+
+        ];
+
+
+        $messages= [
+            'teacher_id.required' => 'Le champ nom enseignant est obligatoire.',
+            'file.required' => 'Le champ du fichier est obligatoire.',
+
+            'string' => 'Le champ :attribute doit être une chaîne de caractères.',
+            'max' => [
+                'string' => 'Le champ :attribute ne doit pas dépasser :max caractères.',
+            ]
+
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with(['operation' => 'create']);
+        }
+
+        $timetable = new Timetable();
+
+        $timetable->role_id = '3';
+        $timetable->teacher_id = $request->input('teacher_id');
+
+        $file = $request->file('file');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/timetables', $fileName);
+
+
+        $timetable->file = $fileName;
+
+        $timetable->save();
+
+        Session::flash('alert-success', 'success');
+        return redirect()->route('admin.timetables.TeachersTimetable')->with('success', 'Emploi du temps ajoutée avec succées !');
+
+    }
+
+
+
+    public function updateTeachersTimetable(Request $request,$id)
+    {
+        Session::put('form_type', 'edit');
+        session()->put('edit_timetable_id', $id);
+
+        $timetable = Timetable::findOrFail($id);
+
+        $rules = [
+            'teacher_id' => 'required',
+
+        ];
+
+
+        $messages= [
+            'teacher_id.required' => 'Le champ nom enseignant est obligatoire.',
+
+            'string' => 'Le champ :attribute doit être une chaîne de caractères.',
+            'max' => [
+                'string' => 'Le champ :attribute ne doit pas dépasser :max caractères.',
+            ]
+
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with(['operation' => 'create']);
+        }
+
+
+        $timetable->role_id = '3';
+        $timetable->teacher_id = $request->input('teacher_id');
+        if($file = $request->file('file')){
+
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/timetables', $fileName);
+            $timetable->file = $fileName;
+        }
+
+
+        $timetable->save();
+
+        Session::flash('alert-success', 'success');
+        return redirect()->route('admin.timetables.TeachersTimetable')->with('warning', 'Emploi du temps mis a jours avec succées !');
+    }
+
+    public function destroyTeachersTimetable($id)
+    {
+    $timetable = Timetable::findOrFail($id);
+    $timetable->delete();
+    Session::flash('alert-danger', 'danger');
+    // Return a success response with a success message
+    return redirect()->route('admin.timetables.TeachersTimetable')->with('danger', 'Emploi du temps supprimé avec succées !');
+}
+
 
     /**
      * Store a newly created resource in storage.
