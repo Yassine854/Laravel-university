@@ -46,7 +46,6 @@ class TimetableController extends Controller
 
     public function createStudentsTimetable(Request $request)
     {
-
         Session::put('form_type', 'create');
 
 
@@ -111,7 +110,6 @@ class TimetableController extends Controller
             'department_id' => 'required',
             'field_id' => 'required',
             'group' => 'required',
-
         ];
 
 
@@ -139,9 +137,9 @@ class TimetableController extends Controller
         $timetable->department_id = $request->input('department_id');
         $timetable->field_id = $request->input('field_id');
         $timetable->group = $request->input('group');
-        if($file = $request->file('file')){
+        if($file = $request->file('fileEdit')){
 
-            $file = $request->file('file');
+            $file = $request->file('fileEdit');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('public/timetables', $fileName);
             $timetable->file = $fileName;
@@ -280,9 +278,9 @@ public function indexTeachersTimetable()
 
         $timetable->role_id = '3';
         $timetable->teacher_id = $request->input('teacher_id');
-        if($file = $request->file('file')){
+        if($file = $request->file('fileEdit')){
 
-            $file = $request->file('file');
+            $file = $request->file('fileEdit');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('public/timetables', $fileName);
             $timetable->file = $fileName;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Field;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,8 +17,9 @@ class SubjectController extends Controller
      */
     public function index()
     {
+        $fields = Field::with('department')->get();
         $subjects=Subject::all();
-        return view('admin.subjects.index', ['subjects' => $subjects]);
+        return view('admin.subjects.index', ['subjects' => $subjects,'fields'=>$fields]);
     }
 
     /**
@@ -30,11 +32,13 @@ class SubjectController extends Controller
         Session::put('form_type', 'create');
         $rules = [
             'name' => 'required|string|max:255',
+            'field_id' => 'required',
 
         ];
 
         $messages= [
             'name.required' => 'Le champ nom est obligatoire.',
+            'field_id.required' => 'Le champ filiére est obligatoire.',
             'string' => 'Le champ :attribute doit être une chaîne de caractères.',
             'max' => [
                 'string' => 'Le champ :attribute ne doit pas dépasser :max caractères.',
@@ -55,6 +59,7 @@ class SubjectController extends Controller
 
         $subject = new Subject();
         $subject->name = $request->input('name');
+        $subject->field_id = $request->input('field_id');
         $subject->save();
         Session::flash('alert-success', 'success');
         return redirect()->route('admin.subjects.index')->with('success', 'Matiére ajoutée avec succées !');
@@ -107,11 +112,13 @@ class SubjectController extends Controller
 
         $rules = [
             'name' => 'required|string|max:255',
+            'field_id' => 'required',
 
         ];
 
         $messages= [
             'name.required' => 'Le champ nom est obligatoire.',
+            'field_id.required' => 'Le champ filiére est obligatoire.',
             'string' => 'Le champ :attribute doit être une chaîne de caractères.',
             'max' => [
                 'string' => 'Le champ :attribute ne doit pas dépasser :max caractères.',
@@ -129,6 +136,7 @@ class SubjectController extends Controller
 
         $subject = Subject::findOrFail($id);
         $subject->name = $request->input('name');
+        $subject->field_id = $request->input('field_id');
 
         $subject->save();
         Session::flash('alert-warning', 'warning');

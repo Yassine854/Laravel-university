@@ -19,7 +19,7 @@
 
             <!-- Modal -->
             <div x-show="openModal" class="fixed z-10 inset-0 overflow-y-auto" style="display: none;">
-                <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <div class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
                     <div class="fixed inset-0 transition-opacity">
                         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                     </div>
@@ -55,7 +55,7 @@
                                 <div class="mb-4">
                                     <label for="teacher_id" class="block text-sm font-medium text-gray-700">Enseignant</label>
                                     <select name="teacher_id" id="teacher_id"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                         <option value="">Tous les enseignants</option> <!-- Option for showing all teachers -->
 
                                         @php
@@ -83,7 +83,7 @@
 
                                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
-                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Ajouter</button>
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Ajouter</button>
                                     <button type="button" @click="openModal = false"
                                         class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Annuler</button>
                                 </div>
@@ -155,7 +155,7 @@
 
     <!-- Modal -->
     <div x-show="editModal" class="fixed z-10 inset-0 overflow-y-auto">
-        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+        <div class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
             <div class="fixed inset-0 transition-opacity">
                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
@@ -173,7 +173,7 @@
                 <!-- Modal Body -->
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <!-- Your form content goes here -->
-                    <form action="{{ route('admin.timetables.updateTeachersTimetable', ['id'=>$timetable->id]) }}" method="POST">
+                    <form action="{{ route('admin.timetables.updateTeachersTimetable', ['id'=>$timetable->id]) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         @if ($errors->any())
@@ -187,49 +187,49 @@
                         </div>
                         @endif
 
-
                         <div class="mb-4">
                             <label for="teacher_id" class="block text-sm font-medium text-gray-700">Enseignant</label>
                             <select name="teacher_id" id="teacher_id"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 <option value="{{ $timetable->teacher->id}}">{{ $timetable->teacher->name }} {{ $timetable->teacher->last_name }}</option>
 
                                 @foreach ($teachers as $teacher )
-
-                                @if ($teacher->id != $timetable->teacher->id)
-                                <option value="{{ $teacher->id }}">{{ $teacher->name }} {{ $teacher->last_name }}</option> <!-- Option for showing all groups -->
+                                    @if ($teacher->id != $timetable->teacher->id)
+                                        <option value="{{ $teacher->id }}">{{ $teacher->name }} {{ $teacher->last_name }}</option> <!-- Option for showing all groups -->
                                     @endif
-
-
                                 @endforeach
                             </select>
                         </div>
 
-
                         <!-- File upload input -->
                         <div class="mb-4">
-                            <label for="file" class="block text-sm font-medium text-gray-700">Emploi du temps (PDF)</label>
-                            <!-- Display the file name if it exists -->
-                            @if ($timetable->file)
-                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file" type="text" name="file" value="{{ $timetable->file }}" readonly>
-                            @else
-                                <!-- If no file is associated, display a regular file input field -->
-                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file" type="file" name="file">
-                            @endif
+                            <label for="fileEdit" class="block text-sm font-medium text-gray-700">Emploi du temps (PDF)</label>
+                            <div class="input-group">
+                                <input id="oldFileName" type="text" name="oldFileName" value="{{ $timetable->file ? $timetable->file : 'No file selected' }}" class="form-control" readonly>
+                                <label class="input-group-text btn btn-outline-primary" for="fileEdit">Sélectionner fichier</label>
+                                <input id="fileEdit" type="file" name="fileEdit" class="form-control hidden" @change="updateFileName($event)">
+                            </div>
                         </div>
 
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Modifier</button>
+                            <button type="submit"
+                                                            class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Modifier</button>
                             <button type="button" @click="editModal = false" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Annuler</button>
                         </div>
                     </form>
                 </div>
-
-                <!-- Modal Footer -->
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function updateFileName(event) {
+        var fileName = event.target.files[0].name;
+        document.getElementById('oldFileName').value = fileName;
+    }
+</script>
+
 
 
 
@@ -244,7 +244,7 @@
                                     </button>
                                     <!-- Delete Modal -->
                                     <div x-show="deleteModal" class="fixed z-10 inset-0 overflow-y-auto">
-                                        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                        <div class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
                                             <div class="fixed inset-0 transition-opacity">
                                                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                                             </div>
@@ -259,7 +259,10 @@
                                                         @method('DELETE')
                                                         <p class="text-sm text-gray-500">Etes-vous sûr que vous voulez supprimer cet emploi du temps?</p>
                                                         <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                                                            <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Oui</button>
+                                                            <button type="submit"
+                                                            class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                                            Oui
+                                                          </button>
                                                             <button type="button" @click="deleteModal = false" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Annuler</button>
                                                         </div>
                                                     </form>

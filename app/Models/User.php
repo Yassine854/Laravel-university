@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Field::class);
     }
+
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'subject_user');
+    }
 }

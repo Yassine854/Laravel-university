@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Field;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -78,7 +79,6 @@ class UserController extends Controller
         Session::put('form_type', 'edit');
         session()->put('edit_user_id', $id);
         $rules = [
-            'role' => 'required',
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => [
@@ -121,9 +121,6 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->input('password'));
-        }
         $user->save();
         Session::flash('alert-warning', 'warning');
 
@@ -143,11 +140,12 @@ class UserController extends Controller
 
 public function indexTeacher()
 {
+    $subjects=Subject::all();
     $departments=Department::all();
     $fields=Field::all();
     $users = User::with('field')->where('role_id', 3)->get();
 
-    return view('admin.users.teachers', ['users' => $users,'fields'=>$fields,'departments'=>$departments]);
+    return view('admin.users.teachers', ['users' => $users,'fields'=>$fields,'departments'=>$departments,'subjects'=>$subjects]);
 }
 
 
@@ -156,6 +154,7 @@ public function createTeacher(Request $request)
     Session::put('form_type', 'create');
     $rules = [
         'name' => 'required|string|max:255',
+        'subjects'=> 'required',
         'last_name' => 'required|string|max:255',
         'address' => 'required|string|max:255',
         'phone' => 'required|string|size:8',
@@ -166,6 +165,7 @@ public function createTeacher(Request $request)
 
     $messages = [
         'name.required' => 'Le champ prénom est obligatoire.',
+        'subjects.required' => 'Le champ matiéres est obligatoire.',
         'last_name.required' => 'Le champ nom est obligatoire.',
         'address.required' => 'Le champ adresse est obligatoire.',
         'phone.required' => 'Le champ Téléphone est obligatoire.',
@@ -204,6 +204,9 @@ public function createTeacher(Request $request)
     $user->email = $request->input('email');
     $user->password = bcrypt($request->input('password'));
     $user->save();
+    if ($request->has('subjects')) {
+        $user->subjects()->attach($request->input('subjects'));
+    }
     Session::flash('alert-success', 'success');
     return redirect()->route('admin.users.indexTeacher')->with('success', 'Enseignant ajouté avec succées !');
 }
@@ -214,6 +217,7 @@ public function updateTeacher(Request $request, $id)
     session()->put('edit_user_id', $id);
     $rules = [
         'name' => 'required|string|max:255',
+        'subjects' => 'required',
         'last_name' => 'required|string|max:255',
         'address' => 'required|string|max:255',
         'phone' => 'required|string|size:8',
@@ -230,6 +234,7 @@ public function updateTeacher(Request $request, $id)
 
     $messages = [
         'name.required' => 'Le champ prénom est obligatoire.',
+        'subjects.required' => 'Le champ matiéres est obligatoire.',
         'last_name.required' => 'Le champ nom est obligatoire.',
         'address.required' => 'Le champ adresse est obligatoire.',
         'phone.required' => 'Le champ Téléphone est obligatoire.',
@@ -270,6 +275,13 @@ public function updateTeacher(Request $request, $id)
         $user->password = bcrypt($request->input('password'));
     }
     $user->save();
+
+    if ($request->filled('subjects')) {
+        $user->subjects()->sync($request->input('subjects'));
+    } else {
+        // If no subjects provided, detach all subjects
+        $user->subjects()->detach();
+    }
     Session::flash('alert-warning', 'warning');
 
     return redirect()->route('admin.users.indexTeacher')->with('warning', 'Enseignant modifié avec succées !');

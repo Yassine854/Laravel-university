@@ -16,7 +16,7 @@
 
             <!-- Modal -->
             <div x-show="openModal" class="fixed z-10 inset-0 overflow-y-auto" style="display: none;">
-                <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <div class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
                     <div class="fixed inset-0 transition-opacity">
                         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                     </div>
@@ -52,31 +52,31 @@
                                 <div class="mb-4">
                                     <label for="name" class="block text-sm font-medium text-gray-700">Prénom</label>
                                     <input type="text" name="name" id="name" autocomplete="name"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="last_name" class="block text-sm font-medium text-gray-700">Nom</label>
                                     <input type="text" name="last_name" id="last_name" autocomplete="last_name"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="address" class="block text-sm font-medium text-gray-700">Adresse</label>
                                     <input type="text" name="address" id="address" autocomplete="address"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="phone" class="block text-sm font-medium text-gray-700">Téléphone</label>
                                     <input type="text" name="phone" id="phone" autocomplete="phone"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="department_id" class="block text-sm font-medium text-gray-700">Département</label>
                                     <select name="department_id" id="department_id"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                         <option  value="">Tous les départements</option> <!-- Option for showing all departments -->
                                         @foreach ($departments as $department)
                                         <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -87,7 +87,7 @@
                                 <div class="mb-4" id="fieldSelectWrapper" style="display: none;">
                                     <label for="field_id" class="block text-sm font-medium text-gray-700">Filière</label>
                                     <select name="field_id" id="field_id"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" disabled>
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black" disabled>
                                         <option  value="">Toutes les filières</option> <!-- Option for showing all fields -->
                                         @foreach ($fields as $field)
                                         <option value="{{ $field->id }}" data-department="{{ $field->department_id }}">{{ $field->name }}</option>
@@ -98,7 +98,7 @@
                                 <div class="mb-4" id="groupeSelectWrapper" style="display: none;">
                                     <label for="groupe_id" class="block text-sm font-medium text-gray-700">Groupe</label>
                                     <select name="groupe" id="groupe_id"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" disabled>
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black" disabled>
                                         <option value="">Tous les groupes</option> <!-- Option for showing all groups -->
                                         <option value="1">Groupe 1</option>
                                         <option value="2">Groupe 2</option>
@@ -111,18 +111,18 @@
                                 <div class="mb-4">
                                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                                     <input type="email" name="email" id="email" autocomplete="email"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 </div>
                                 <div class="mb-4">
                                     <label for="password" class="block text-sm font-medium text-gray-700">Mot de
                                         passe</label>
                                     <input type="password" name="password" id="password" autocomplete="password"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 </div>
 
                                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
-                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Ajouter</button>
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Ajouter</button>
                                     <button type="button" @click="openModal = false"
                                         class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Annuler</button>
                                 </div>
@@ -204,7 +204,7 @@
                                     <div x-show="editModal" class="fixed z-10 inset-0 overflow-y-auto"
                                         style="display: none;">
                                         <div
-                                            class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                            class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
                                             <div class="fixed inset-0 transition-opacity">
                                                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                                             </div>
@@ -246,7 +246,7 @@
                                                             <label for="name"
                                                                 class="block text-sm font-medium text-gray-700">Prénom</label>
                                                             <input type="text" name="name" id="name" autocomplete="name"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black"
                                                                 value="{{ $user->name }}">
                                                         </div>
 
@@ -255,7 +255,7 @@
                                                                 class="block text-sm font-medium text-gray-700">Nom</label>
                                                             <input type="text" name="last_name" id="last_name"
                                                                 autocomplete="last_name"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black"
                                                                 value="{{ $user->last_name }}">
                                                         </div>
 
@@ -265,7 +265,7 @@
                                                                 class="block text-sm font-medium text-gray-700">Adresse</label>
                                                             <input type="text" name="address" id="address"
                                                                 autocomplete="address"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black"
                                                                 value="{{ $user->address }}">
                                                         </div>
 
@@ -275,14 +275,14 @@
                                                                 class="block text-sm font-medium text-gray-700">Téléphone</label>
                                                             <input type="text" name="phone" id="phone"
                                                                 autocomplete="phone"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black"
                                                                 value="{{ $user->phone }}">
                                                         </div>
 
 
                                                         <div class="mb-4">
                                                             <label for="department_idEdit{{ $user->id }}" class="block text-sm font-medium text-gray-700">Département</label>
-                                                            <select name="department_id" id="department_idEdit{{ $user->id }}" onchange="updateFieldSelectEdit({{ json_encode($user) }})" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                            <select name="department_id" id="department_idEdit{{ $user->id }}" onchange="updateFieldSelectEdit({{ json_encode($user) }})" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                                                 <option value="{{ $user->field->department->id }}">{{ $user->field->department->name }}</option>
                                                                 @foreach ($departments as $department)
                                                                     @if ($department->id !== $user->field->department->id)
@@ -296,7 +296,7 @@
                                                         <div class="mb-4" id="fieldSelectWrapperEdit{{ $user->id }}">
                                                             <label for="field_idEdit{{ $user->id }}" class="block text-sm font-medium text-gray-700">Filière</label>
                                                             <select name="field_id" id="field_idEdit{{ $user->id }}"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                                                 <option value="{{ $user->field->id }}">{{ $user->field->name }}</option>
                                                                 @foreach ($fields as $field)
                                                                     @if ($field->id !== $user->field_id)
@@ -309,7 +309,7 @@
                                                         <div class="mb-4" id="groupeSelectWrapperEdit">
                                                             <label for="groupe_idEdit" class="block text-sm font-medium text-gray-700">Groupe</label>
                                                             <select name="groupe" id="groupe_idEdit"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                                                 <option value="{{ $user->groupe }}">Groupe {{ $user->groupe }}</option>
                                                                 @for ($i = 1; $i <= 4; $i++)
                                                                     @if ($i != $user->groupe)
@@ -327,7 +327,7 @@
                                                                 class="block text-sm font-medium text-gray-700">Email</label>
                                                             <input type="email" name="email" id="email"
                                                                 autocomplete="email"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black"
                                                                 value="{{ $user->email }}">
                                                         </div>
                                                         <div class="mb-4">
@@ -336,14 +336,14 @@
                                                                 passe</label>
                                                             <input type="password" name="password" id="password"
                                                                 autocomplete="password"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                                         </div>
 
 
                                                         <div
                                                             class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                                             <button type="submit"
-                                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Modifier</button>
+                                                            class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Modifier</button>
                                                             <button type="button" @click="editModal = false"
                                                                 class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
                                                         </div>
@@ -373,7 +373,7 @@
                                     <div x-show="deleteModal" class="fixed z-10 inset-0 overflow-y-auto"
                                         style="display: none;">
                                         <div
-                                            class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                            class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
                                             <div class="fixed inset-0 transition-opacity">
                                                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                                             </div>
@@ -393,7 +393,9 @@
                                                             cet étudiant?</p>
                                                         <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                                                             <button type="submit"
-                                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Oui</button>
+                                                            class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                                            Oui
+                                                          </button>
                                                             <button type="button" @click="deleteModal = false"
                                                                 class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Annuler</button>
                                                         </div>

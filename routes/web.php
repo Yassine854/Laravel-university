@@ -27,8 +27,15 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('lessons', \App\Http\Controllers\Students\LessonController::class);
     });
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
-       Route::resource('courses', \App\Http\Controllers\Teachers\CourseController::class);
-   });
+    //Courses
+    Route::get('subjects', [\App\Http\Controllers\Teachers\CourseController::class, 'indexSubjects'])->name('indexSubjects');
+    Route::get('courses/{subject}', [\App\Http\Controllers\Teachers\CourseController::class, 'show'])->name('courses.show');
+    Route::post('course/create', [\App\Http\Controllers\Teachers\CourseController::class, 'create'])->name('courses.create');
+    Route::put('course/{id}', [\App\Http\Controllers\Teachers\CourseController::class, 'update'])->name('courses.update');
+    Route::delete('course/{id}', [\App\Http\Controllers\Teachers\CourseController::class, 'destroy'])->name('courses.destroy');
+    Route::get('course/{fileName}', [\App\Http\Controllers\Teachers\CourseController::class, 'downloadCourse'])->name('courses.downloadCourse');
+
+});
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         // Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
         //Admins

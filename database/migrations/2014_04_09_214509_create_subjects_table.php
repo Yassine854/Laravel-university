@@ -16,6 +16,8 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('field_id');
+            $table->foreign('field_id')->references('id')->on('fields');
             $table->timestamps();
         });
     }

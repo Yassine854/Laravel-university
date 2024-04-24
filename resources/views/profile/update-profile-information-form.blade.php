@@ -67,6 +67,22 @@
 
         @if ($this->user->role_id==3)
         <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="subjects" value="{{ __('Matiéres') }}" />
+            <x-jet-input id="subjects"
+                   type="text"
+                   class="mt-1 block w-full"
+                   wire:input="state.subjects"
+                   autocomplete="subjects"
+                   disabled
+                   style="background-color: #f2f2f2; color: #555555;"
+                   value="{{ implode(', ', $this->user->subjects->pluck('name')->toArray()) }}" />
+            <x-jet-input-error for="subjects" class="mt-2" />
+        </div>
+
+
+
+
+        <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="Nbureau" value="{{ __('Num bureau') }}" />
             <x-jet-input id="Nbureau" type="text" class="mt-1 block w-full" wire:model.defer="state.Nbureau" autocomplete="Nbureau" disabled style="background-color: #f2f2f2; color: #555555;" />
             <x-jet-input-error for="Nbureau" class="mt-2" />

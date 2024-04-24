@@ -16,7 +16,7 @@
 
             <!-- Modal -->
             <div x-show="openModal" class="fixed z-10 inset-0 overflow-y-auto" style="display: none;">
-                <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <div class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
                     <div class="fixed inset-0 transition-opacity">
                         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                     </div>
@@ -49,17 +49,36 @@
                                 </div>
                                 @endif
 
+                                <div class="mb-4">
+                                    <label for="field_id" class="block text-sm font-medium text-gray-700">Filiéres</label>
+                                    <select name="field_id" id="field_id"
+                                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
+                                        <option value="">Liste des filiéres</option>
+
+                                        @foreach ($fields->groupBy('department_id') as $departmentId => $departmentFields)
+                                            @php
+                                                $departmentName = $departmentFields->first()->department->name ?? 'Unknown Department';
+                                            @endphp
+                                            <optgroup label="{{ $departmentName }}">
+                                                @foreach ($departmentFields as $field)
+                                                    <option value="{{ $field->id }}">{{ $field->name }}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    </select>
+                                </div>
+
 
                                 <div class="mb-4">
                                     <label for="name" class="block text-sm font-medium text-gray-700">Nom</label>
                                     <input type="text" name="name" id="name" autocomplete="name"
-                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
                                 </div>
 
 
                                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
-                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Ajouter</button>
+                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Ajouter</button>
                                     <button type="button" @click="openModal = false"
                                         class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Annuler</button>
                                 </div>
@@ -92,7 +111,7 @@
 
 
 
-            <x-jet-bar-table :headers="['ID', 'nom','Created_at','', '']">
+            <x-jet-bar-table :headers="['ID', 'nom','departement','filiére','Created_at','', '']">
                 <template x-data="{ total:1 }" x-for="index in total">
                     @foreach($subjects as $subject)
                     <tr class="hover:bg-gray-50">
@@ -102,6 +121,14 @@
 
                         <x-jet-bar-table-data>
                             {{ $subject->name }}
+                        </x-jet-bar-table-data>
+
+                        <x-jet-bar-table-data>
+                            {{ $subject->field->department->name }}
+                        </x-jet-bar-table-data>
+
+                        <x-jet-bar-table-data>
+                            {{ $subject->field->name }}
                         </x-jet-bar-table-data>
 
                         <x-jet-bar-table-data>
@@ -123,7 +150,7 @@
                                     <div x-show="editModal" class="fixed z-10 inset-0 overflow-y-auto"
                                         style="display: none;">
                                         <div
-                                            class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                            class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
                                             <div class="fixed inset-0 transition-opacity">
                                                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                                             </div>
@@ -158,6 +185,23 @@
                                                         </div>
                                                         @endif
 
+                                                        <div class="mb-4">
+                                                            <label for="field_id" class="block text-sm font-medium text-gray-700">Filiéres</label>
+                                                            <select name="field_id" id="field_id"
+                                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
+
+                                                                @foreach ($fields->groupBy('department_id') as $departmentId => $departmentFields)
+                                                                    @php
+                                                                        $departmentName = $departmentFields->first()->department->name ?? 'Unknown Department';
+                                                                    @endphp
+                                                                    <optgroup label="{{ $departmentName }}">
+                                                                        @foreach ($departmentFields as $field)
+                                                                            <option value="{{ $field->id }}" @if($subject->field_id == $field->id) selected @endif>{{ $field->name }}</option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
 
 
 
@@ -165,14 +209,14 @@
                                                             <label for="name"
                                                                 class="block text-sm font-medium text-gray-700">Titre</label>
                                                             <input type="text" name="name" id="name" autocomplete="name"
-                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black"
                                                                 value="{{ $subject->name }}">
                                                         </div>
 
                                                         <div
                                                             class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                                             <button type="submit"
-                                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Modifier</button>
+                                                            class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-500 text-base font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Modifier</button>
                                                             <button type="button" @click="editModal = false"
                                                                 class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
                                                         </div>
@@ -202,7 +246,7 @@
                                     <div x-show="deleteModal" class="fixed z-10 inset-0 overflow-y-auto"
                                         style="display: none;">
                                         <div
-                                            class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                                            class="d-flex align-items-center justify-content-center min-vh-100 px-4 pt-4 pb-5 text-center">
                                             <div class="fixed inset-0 transition-opacity">
                                                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                                             </div>
@@ -222,7 +266,9 @@
                                                             cette matiére?</p>
                                                         <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                                                             <button type="submit"
-                                                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">Oui</button>
+                                                            class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                                            Oui
+                                                          </button>
                                                             <button type="button" @click="deleteModal = false"
                                                                 class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Annuler</button>
                                                         </div>
