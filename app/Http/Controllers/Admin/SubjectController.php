@@ -33,11 +33,14 @@ class SubjectController extends Controller
         $rules = [
             'name' => 'required|string|max:255',
             'field_id' => 'required',
+            'semester' => 'required|string|max:255',
+
 
         ];
 
         $messages= [
             'name.required' => 'Le champ nom est obligatoire.',
+            'semester.required' => 'Le champ semester est obligatoire.',
             'field_id.required' => 'Le champ filiére est obligatoire.',
             'string' => 'Le champ :attribute doit être une chaîne de caractères.',
             'max' => [
@@ -59,6 +62,8 @@ class SubjectController extends Controller
 
         $subject = new Subject();
         $subject->name = $request->input('name');
+        $subject->semester = $request->input('semester');
+
         $subject->field_id = $request->input('field_id');
         $subject->save();
         Session::flash('alert-success', 'success');
@@ -113,11 +118,13 @@ class SubjectController extends Controller
         $rules = [
             'name' => 'required|string|max:255',
             'field_id' => 'required',
+            'semester' => 'required|string|max:255',
 
         ];
 
         $messages= [
             'name.required' => 'Le champ nom est obligatoire.',
+            'semester.required' => 'Le champ semester est obligatoire.',
             'field_id.required' => 'Le champ filiére est obligatoire.',
             'string' => 'Le champ :attribute doit être une chaîne de caractères.',
             'max' => [
@@ -136,6 +143,7 @@ class SubjectController extends Controller
 
         $subject = Subject::findOrFail($id);
         $subject->name = $request->input('name');
+        $subject->semester = $request->input('semester');
         $subject->field_id = $request->input('field_id');
 
         $subject->save();

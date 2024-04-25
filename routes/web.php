@@ -18,9 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('new/{id}', [\App\Http\Controllers\DashboardController::class, 'indexNew'])->name('indexNew');
+
+});
+
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function() {
@@ -34,6 +41,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('course/{id}', [\App\Http\Controllers\Teachers\CourseController::class, 'update'])->name('courses.update');
     Route::delete('course/{id}', [\App\Http\Controllers\Teachers\CourseController::class, 'destroy'])->name('courses.destroy');
     Route::get('course/{fileName}', [\App\Http\Controllers\Teachers\CourseController::class, 'downloadCourse'])->name('courses.downloadCourse');
+
+    //Marks
+    Route::get('semesters', [\App\Http\Controllers\Teachers\MarkController::class, 'indexSemesters'])->name('indexSemesters');
+    Route::get('marks/{semester}', [\App\Http\Controllers\Teachers\MarkController::class, 'showSubjects'])->name('marks.showSubjects');
+    Route::get('marks/{semester}/{subject}', [\App\Http\Controllers\Teachers\MarkController::class, 'showStudents'])->name('marks.showStudents');
+    Route::get('marks/{semester}/{subject}/{student}', [\App\Http\Controllers\Teachers\MarkController::class, 'showMarks'])->name('marks.showMarks');
+    Route::post('mark/create', [\App\Http\Controllers\Teachers\MarkController::class, 'create'])->name('marks.create');
+    Route::put('mark/{id}', [\App\Http\Controllers\Teachers\MarkController::class, 'update'])->name('marks.update');
+
 
 });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
@@ -69,6 +85,13 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('timetables/teachers/create', [\App\Http\Controllers\Admin\TimetableController::class, 'createTeachersTimetable'])->name('timetables.createTeachersTimetable');
         Route::put('timetables/{id}', [\App\Http\Controllers\Admin\TimetableController::class, 'updateTeachersTimetable'])->name('timetables.updateTeachersTimetable');
         Route::delete('timetables/{id}', [\App\Http\Controllers\Admin\TimetableController::class, 'destroyTeachersTimetable'])->name('timetables.destroyTeachersTimetable');
+
+        //Calendrier d'examens
+        Route::get('calendars', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'index'])->name('calendars.index');
+        Route::post('calendar/create', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'create'])->name('calendars.create');
+        Route::put('calendar/{id}', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'update'])->name('calendars.update');
+        Route::delete('calendar/{id}', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'destroy'])->name('calendars.destroy');
+        Route::get('calendar/{fileName}', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'download'])->name('calendars.download');
 
 
 

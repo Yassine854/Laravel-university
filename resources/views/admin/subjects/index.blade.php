@@ -68,6 +68,17 @@
                                     </select>
                                 </div>
 
+                                <div class="mb-4">
+                                    <label for="semester" class="block text-sm font-medium text-gray-700">Semestre</label>
+                                    <select name="semester" id="semester"
+                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
+                                        <option value="">Sélectionner la Semestre</option> <!-- Option for showing all groups -->
+                                        <option value="1">Semestre 1</option>
+                                        <option value="2">Semestre 2</option>
+
+                                    </select>
+                                </div>
+
 
                                 <div class="mb-4">
                                     <label for="name" class="block text-sm font-medium text-gray-700">Nom</label>
@@ -111,7 +122,7 @@
 
 
 
-            <x-jet-bar-table :headers="['ID', 'nom','departement','filiére','Created_at','', '']">
+            <x-jet-bar-table :headers="['ID', 'nom','departement','Semestre','filiére','Created_at','', '']">
                 <template x-data="{ total:1 }" x-for="index in total">
                     @foreach($subjects as $subject)
                     <tr class="hover:bg-gray-50">
@@ -125,6 +136,10 @@
 
                         <x-jet-bar-table-data>
                             {{ $subject->field->department->name }}
+                        </x-jet-bar-table-data>
+
+                        <x-jet-bar-table-data>
+                            {{ $subject->semester }}
                         </x-jet-bar-table-data>
 
                         <x-jet-bar-table-data>
@@ -204,6 +219,20 @@
                                                         </div>
 
 
+                                                        <div class="mb-4" >
+                                                            <label for="semester" class="block text-sm font-medium text-gray-700">Semestre</label>
+                                                            <select name="semester" id="semester"
+                                                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black">
+                                                                <option value="{{ $subject->semester }}">Sémestre {{ $subject->semester }}</option> <!-- Option for showing all groups -->
+
+                                                                @for ($i = 1; $i <= 2; $i++)
+                                                                    @if ($i != $subject->semester)
+                                                                        <option value="{{ $i }}">Semestre {{ $i }}</option>
+                                                                    @endif
+                                                                @endfor
+
+                                                            </select>
+                                                        </div>
 
                                                         <div class="mb-4">
                                                             <label for="name"
