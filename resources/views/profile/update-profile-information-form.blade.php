@@ -65,6 +65,30 @@
             <x-jet-input-error for="name" class="mt-2" />
         </div>
 
+        @if ($this->user->role_id==2)
+
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="department" value="{{ __('Département') }}" />
+            <x-jet-input id="department" type="text" class="mt-1 block w-full" value="{{ $this->user->field->department->name }}" autocomplete="department" disabled style="background-color: #f2f2f2; color: #555555;" />
+            <x-jet-input-error for="department" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="field" value="{{ __('Filiére') }}" />
+            <x-jet-input id="field" type="text" class="mt-1 block w-full" value="{{ $this->user->field->name }}" autocomplete="field" disabled style="background-color: #f2f2f2; color: #555555;" />
+            <x-jet-input-error for="field" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="groupe" value="{{ __('Groupe') }}" />
+            <x-jet-input id="groupe" type="text" class="mt-1 block w-full" value="{{ $this->user->groupe }}" autocomplete="field" disabled style="background-color: #f2f2f2; color: #555555;" />
+            <x-jet-input-error for="groupe" class="mt-2" />
+        </div>
+
+        @endif
+
+
         @if ($this->user->role_id==3)
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="subjects" value="{{ __('Matiéres') }}" />

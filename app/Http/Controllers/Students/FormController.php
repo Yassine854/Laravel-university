@@ -1,11 +1,14 @@
 <?php
 namespace App\Http\Controllers\Students;
 use App\Models\Form;
+use App\Models\User;
 use App\Models\ExamCalendar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\FormCreatedNotification;
 
 
 class FormController extends Controller
@@ -72,6 +75,8 @@ class FormController extends Controller
         $form->file = $fileName;
 
         $form->save();
+        Notification::send(User::where('role_id', 1)->get(), new FormCreatedNotification($form));
+
 
         Session::flash('alert-success', 'success');
         return redirect()->route('student.forms.index')->with('success', 'Formulaire ajoutée avec succées !');

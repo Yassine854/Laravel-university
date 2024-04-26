@@ -13,6 +13,11 @@
 
     <div class="flex items-center">
         {{-- Notifications --}}
+        @if (auth()->user()->role_id == 1)
+        @php
+        $unreadNotificationsCount = auth()->user()->unreadNotifications->count();
+    @endphp
+
         <div x-data="{ notificationOpen: false }" class="relative">
             <button @click="notificationOpen = ! notificationOpen"
                     class="flex mx-4 text-gray-600 focus:outline-none">
@@ -22,45 +27,40 @@
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     </path>
                 </svg>
-            </button>
+                @if ($unreadNotificationsCount == 0)
+                <span class="bg-red-500 text-white rounded-full px-1 py-0.8 absolute bottom-3 right-4 text-xs">0</span>
+                @endif
+                @if ($unreadNotificationsCount > 0)
+                <span class="bg-red-500 text-white rounded-full px-1 py-0.8 absolute bottom-3 right-4 text-xs">{{ $unreadNotificationsCount }}</span>
+                @endif
+        </button>
 
             <div x-show="notificationOpen" @click="notificationOpen = false" class="fixed inset-0 h-full w-full z-10" style="display: none;"></div>
 
             <div x-show="notificationOpen" class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-10 border" style="width: 20rem; display: none;">
-                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 -mx-2">
-                    <figure class="w-1/6">
-                        <img class="h-8 w-8 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80" alt="avatar">
-                    </figure>
-                    <p class="text-sm mx-2 w-full">
-                        <span class="font-bold" href="#">Sara Salah</span> replied on the <span class="font-bold text-indigo-400">Upload Image</span> article. 2m
-                    </p>
-                </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 -mx-2">
-                    <figure class="w-1/6">
-                        <img class="h-8 w-8 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80" alt="avatar">
-                    </figure>
-                    <p class="text-sm mx-2 w-full">
-                        <span class="font-bold" href="#">Slick Net</span> start following you . 45m
-                    </p>
-                </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 -mx-2">
-                    <figure class="w-1/6">
-                        <img class="h-8 w-8 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80" alt="avatar">
-                    </figure>
-                    <p class="text-sm mx-2 w-full">
-                        <span class="font-bold" href="#">Jane Doe</span> Like Your reply on <span class="font-bold text-indigo-400" href="#">Test with TDD</span> artical . 1h
-                    </p>
-                </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 -mx-2">
-                    <figure class="w-1/6">
-                        <img class="h-8 w-8 rounded-full object-cover mx-1" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=398&amp;q=80" alt="avatar">
-                    </figure>
-                    <p class="text-sm mx-2 w-full">
-                        <span class="font-bold" href="#">Abigail Bennett</span> start following you . 3h
-                    </p>
-                </a>
+                @if(auth()->user()->unreadNotifications->isEmpty())
+                    <p class="py-3 px-4 text-gray-600">Aucune notification trouvée.</p>
+                @else
+                    @foreach(auth()->user()->unreadNotifications as $notification)
+                    <form action="{{ route('admin.markNotificationAsRead', $notification->id) }}" method="POST" class="hover:bg-gray-100">
+                        @csrf
+                        <button type="submit" class="flex items-center px-4 py-3 w-full text-left text-gray-600 hover:bg-gray-100 focus:outline-none">
+                            <div class="bg-gray-200 rounded-full p-2 mr-3">
+                                <!-- You can add an icon here if you have one -->
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">Nouvelle formulaire ajoutée</p>
+                                <p class="text-xs text-gray-600">Sujet: {{ $notification->data['form_title'] }}</p>
+                                <p class="text-xs text-gray-600">{{ $notification->created_at }}</p>
+                            </div>
+                        </button>
+                    </form>
+                    @endforeach
+                @endif
             </div>
+
         </div>
+        @endif
         {{-- End Notifications --}}
 
         {{-- User Dropdown --}}

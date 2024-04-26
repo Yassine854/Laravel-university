@@ -135,6 +135,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('departments', \App\Http\Controllers\Admin\DepartmentController::class);
         Route::resource('fields', \App\Http\Controllers\Admin\FieldController::class);
 
+        //Notification
+        Route::post('/mark-notification-as-read/{notification}', [\App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('markNotificationAsRead');
+
     });
 });
 
