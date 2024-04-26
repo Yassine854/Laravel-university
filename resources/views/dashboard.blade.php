@@ -27,11 +27,12 @@
             @foreach ($news as $new)
             <a href="{{ route('indexNew', ['id' => $new->id]) }}" class="list-group-item list-group-item-action" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-5">{{ $new->title }}</h5>
-                  <small>{{ $new->created_at }}</small> <!-- Correction: $new->created_at -->
+                    <h5 class="mb-3" style="font-weight: bold; margin-top: 10px;">{{ $new->title }}</h5> <!-- Added margin-top -->
+                    <small>{{ $new->created_at }}</small>
                 </div>
-              </a>
+            </a>
             @endforeach
         </div>
+
     </x-jet-bar-container>
 </x-app-layout>

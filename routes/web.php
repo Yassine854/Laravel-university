@@ -31,7 +31,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function() {
-        Route::resource('lessons', \App\Http\Controllers\Students\LessonController::class);
+        // Route::resource('lessons', \App\Http\Controllers\Students\LessonController::class
+        //Form
+        Route::get('forms', [\App\Http\Controllers\Students\FormController::class, 'index'])->name('forms.index');
+        Route::post('form/create', [\App\Http\Controllers\Students\FormController::class, 'create'])->name('forms.create');
+        Route::put('form/{id}', [\App\Http\Controllers\Students\FormController::class, 'update'])->name('forms.update');
+        Route::delete('form/{id}', [\App\Http\Controllers\Students\FormController::class, 'destroy'])->name('forms.destroy');
+        Route::get('form/{fileName}', [\App\Http\Controllers\Students\FormController::class, 'download'])->name('forms.download');
+
     });
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
     //Courses
@@ -93,6 +100,10 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('calendar/{id}', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'destroy'])->name('calendars.destroy');
         Route::get('calendar/{fileName}', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'download'])->name('calendars.download');
 
+        //Form
+        Route::get('forms', [\App\Http\Controllers\Admin\FormController::class, 'index'])->name('forms.index');
+        Route::put('form/{id}', [\App\Http\Controllers\Admin\FormController::class, 'update'])->name('forms.update');
+        Route::get('form/{fileName}', [\App\Http\Controllers\Admin\FormController::class, 'download'])->name('forms.download');
 
 
         Route::resource('news', \App\Http\Controllers\Admin\NewController::class);
