@@ -39,7 +39,27 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('form/{id}', [\App\Http\Controllers\Students\FormController::class, 'destroy'])->name('forms.destroy');
         Route::get('form/{fileName}', [\App\Http\Controllers\Students\FormController::class, 'download'])->name('forms.download');
 
+        //Liste de groupe
+        Route::get('groupe', [\App\Http\Controllers\Admin\UserController::class, 'indexGroupList'])->name('groupe.index');
+
+        //Calendrier d'examens
+        Route::get('calendar', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'indexStudent'])->name('calendar.indexStudent');
+
+        //Emplois du temps pour enseignant
+        Route::get('timetable', [\App\Http\Controllers\Students\TimetableController::class, 'index'])->name('timetable.index');
+
+        //Supports de cours
+        Route::get('subjects', [\App\Http\Controllers\Students\CourseController::class, 'indexSubjects'])->name('indexSubjects');
+        Route::get('courses/{subject}', [\App\Http\Controllers\Students\CourseController::class, 'show'])->name('courses.show');
+        Route::get('course/{fileName}', [\App\Http\Controllers\Students\CourseController::class, 'downloadCourse'])->name('courses.downloadCourse');
+
+        //Notes examen
+        Route::get('semesters', [\App\Http\Controllers\Students\MarkController::class, 'indexSemesters'])->name('indexSemesters');
+        Route::get('marks/{semester}', [\App\Http\Controllers\Students\MarkController::class, 'show'])->name('marks.show');
+
     });
+
+
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
     //Courses
     Route::get('subjects', [\App\Http\Controllers\Teachers\CourseController::class, 'indexSubjects'])->name('indexSubjects');
@@ -57,7 +77,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('mark/create', [\App\Http\Controllers\Teachers\MarkController::class, 'create'])->name('marks.create');
     Route::put('mark/{id}', [\App\Http\Controllers\Teachers\MarkController::class, 'update'])->name('marks.update');
 
+    //Calendrier d'examens
+    Route::get('calendar', [\App\Http\Controllers\Admin\ExamCalendarController::class, 'indexTeacher'])->name('calendar.indexTeacher');
 
+    //Emplois du temps pour enseignant
+    Route::get('timetable', [\App\Http\Controllers\Teachers\TimetableController::class, 'index'])->name('timetable.index');
 });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         // Route::resource('users', \App\Http\Controllers\Admin\UserController::class);

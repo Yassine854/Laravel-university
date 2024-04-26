@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $news=News::all();
+        $news = News::latest()->get();
         $Nbteachers=User::where('role_id','3')->count();
         $Nbstudents=User::where('role_id','2')->count();
         $Nbdep=Department::count();

@@ -27,6 +27,19 @@ class UserController extends Controller
         return view('admin.users.admins', ['users' => $users,'fields'=>$fields,'departments'=>$departments]);
     }
 
+//For student interface
+public function indexGroupList()
+{
+    $students = User::with('field')
+                    ->where('role_id', 2)
+                    ->where('groupe', auth()->user()->groupe)
+                    ->orderBy('last_name')
+                    ->get();
+
+    return view('student.groupes.index', ['students' => $students]);
+}
+
+//
 
     public function createAdmin(Request $request)
     {

@@ -18,6 +18,17 @@ class ExamCalendarController extends Controller
     }
 
 
+    public function indexTeacher()
+{
+    $latestCalendar=ExamCalendar::first();
+    return view('teacher.exam_calendar.index',['latestCalendar'=>$latestCalendar ]);
+}
+
+public function indexStudent()
+{
+    $latestCalendar  = ExamCalendar::latest()->first();
+    return view('student.exam_calendar.index', ['latestCalendar'=>$latestCalendar ]);
+}
 
     public function create(Request $request)
     {

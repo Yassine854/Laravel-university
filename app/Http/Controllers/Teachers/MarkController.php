@@ -35,13 +35,28 @@ class MarkController extends Controller
         return view('teacher.marks.student', ['semester' => $semester,'subject'=>$subject,'students'=>$students,'getSubject'=>$getSubject]);
     }
 
-    public function showMarks($semester,$subject,$student)
-    {
-        $getSubject=Subject::where('id',$subject)->first();
-        $getStudent=User::where('id',$student)->first();
-        $marks = Mark::where('subject_id',$subject)->where('student_id',$student)->get();
-        return view('teacher.marks.mark', ['semester' => $semester,'subject'=>$subject,'student'=>$student,'marks'=>$marks,'getSubject'=>$getSubject,'getStudent'=>$getStudent]);
-    }
+    public function showMarks($semester, $subjectId, $studentId)
+{
+    $getSubject = Subject::find($subjectId);
+    $getStudent = User::find($studentId);
+
+    $marks = Mark::where('subject_id', $subjectId)
+                 ->whereHas('subject', function ($query) use ($semester) {
+                     $query->where('semester', $semester);
+                 })
+                 ->where('student_id', $studentId)
+                 ->get();
+
+    return view('teacher.marks.mark', [
+        'semester' => $semester,
+        'subject' => $subjectId,
+        'student' => $studentId,
+        'marks' => $marks,
+        'getSubject' => $getSubject,
+        'getStudent' => $getStudent
+    ]);
+}
+
 
 
 
