@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
@@ -35,7 +35,7 @@
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">Chargement en cours...</span>
         </div>
     </div>
     <!-- Spinner End -->
@@ -50,7 +50,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Acceuil</a>
+                <a href="index.html" class="nav-item nav-link active">Accueil</a>
                 <a href="about.html" class="nav-item nav-link">À propos</a>
                 <a href="courses.html" class="nav-item nav-link">Cours</a>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -59,10 +59,10 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 sm:block">
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="{{ url('/dashboard') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Tableau de bord<i class="fa fa-arrow-right ms-3"></i></a>
 
                     @else
-                    <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Se connecter<i class="fa fa-arrow-right ms-3"></i></a>
 
                     @endauth
                 </div>
@@ -82,7 +82,7 @@
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Meilleurs Cours en Ligne</h5>
                                 <h1 class="display-3 text-white animated slideInDown">Bienvenue à ISSATSo</h1>
                                 <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">En savoir plus</a>
                                 <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Nos Formations</a>
@@ -97,10 +97,10 @@
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
-                                <h1 class="display-3 text-white animated slideInDown">Get Educated Online From Your Home</h1>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Meilleurs Cours en Ligne</h5>
+                                <h1 class="display-3 text-white animated slideInDown">Éduquez-vous en ligne depuis chez vous</h1>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Lire la suite</a>
+                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Rejoignez-nous</a>
                             </div>
                         </div>
                     </div>
@@ -119,8 +119,8 @@
                     <div class="service-item text-center pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
-                            <h5 class="mb-3">Skilled Instructors</h5>
-                            <p>Skilled instructors are the backbone of effective learning experiences across various domains.</p>
+                            <h5 class="mb-3">Instructeurs Qualifiés</h5>
+                            <p>Les instructeurs qualifiés sont l'épine dorsale d'expériences d'apprentissage efficaces dans divers domaines.</p>
                         </div>
                     </div>
                 </div>
@@ -128,8 +128,8 @@
                     <div class="service-item text-center pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-globe text-primary mb-4"></i>
-                            <h5 class="mb-3">Online Classes</h5>
-                            <p>Skilled instructors in online classes possess a unique set of abilities tailored to the digital learning environment.</p>
+                            <h5 class="mb-3">Cours en Ligne</h5>
+                            <p>Les instructeurs qualifiés dans les cours en ligne possèdent un ensemble unique de compétences adaptées à l'environnement d'apprentissage numérique.</p>
                         </div>
                     </div>
                 </div>
@@ -137,8 +137,8 @@
                     <div class="service-item text-center pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-home text-primary mb-4"></i>
-                            <h5 class="mb-3">Home Projects</h5>
-                            <p>Home projects can be a great way to stay productive, learn new skills, and improve your living space.Here are some ideas for home projects</p>
+                            <h5 class="mb-3">Projets à Domicile</h5>
+                            <p>Les projets à domicile peuvent être un excellent moyen de rester productif, d'apprendre de nouvelles compétences et d'améliorer votre espace de vie. Voici quelques idées de projets à domicile.</p>
                         </div>
                     </div>
                 </div>
@@ -146,8 +146,8 @@
                     <div class="service-item text-center pt-3">
                         <div class="p-4">
                             <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
-                            <h5 class="mb-3">Book Library</h5>
-                            <p>Building a book library is a rewarding endeavor that offers endless opportunities for learning, exploration, and entertainment.</p>
+                            <h5 class="mb-3">Bibliothèque de Livres</h5>
+                            <p>Construire une bibliothèque de livres est une entreprise enrichissante qui offre d'innombrables opportunités d'apprentissage, d'exploration et de divertissement.</p>
                         </div>
                     </div>
                 </div>
@@ -167,29 +167,29 @@
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
-                    <h1 class="mb-4">Welcome to E-learning</h1>
+                    <h6 class="section-title bg-white text-start text-primary pe-3">À Propos de Nous</h6>
+                    <h1 class="mb-4">Bienvenue dans l'E-learning</h1>
                     <div class="row gy-2 gx-4 mb-4">
                         <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors</p>
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Instructeurs Qualifiés</p>
                         </div>
                         <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Cours en Ligne</p>
                         </div>
                         <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International Certificate</p>
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Certificat International</p>
                         </div>
                         <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Skilled Instructors</p>
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Instructeurs Qualifiés</p>
                         </div>
                         <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Online Classes</p>
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Cours en Ligne</p>
                         </div>
                         <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>International Certificate</p>
+                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Certificat International</p>
                         </div>
                     </div>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Lire Plus</a>
                 </div>
             </div>
         </div>
@@ -200,8 +200,8 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
-                <h1 class="mb-5">Expert Instructors</h1>
+                <h6 class="section-title bg-white text-center text-primary px-3">Instructeurs</h6>
+                <h1 class="mb-5">Instructeurs Experts</h1>
             </div>
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -217,7 +217,7 @@
                             </div>
                         </div>
                         <div class="text-center p-4">
-                            <h5 class="mb-0">Instructor Name</h5>
+                            <h5 class="mb-0">Nom de l'Instructeur</h5>
                             <small>Designation</small>
                         </div>
                     </div>
@@ -235,7 +235,7 @@
                             </div>
                         </div>
                         <div class="text-center p-4">
-                            <h5 class="mb-0">Instructor Name</h5>
+                            <h5 class="mb-0">Nom de l'Instructeur</h5>
                             <small>Designation</small>
                         </div>
                     </div>
@@ -253,7 +253,7 @@
                             </div>
                         </div>
                         <div class="text-center p-4">
-                            <h5 class="mb-0">Instructor Name</h5>
+                            <h5 class="mb-0">Nom de l'Instructeur</h5>
                             <small>Designation</small>
                         </div>
                     </div>
@@ -271,7 +271,7 @@
                             </div>
                         </div>
                         <div class="text-center p-4">
-                            <h5 class="mb-0">Instructor Name</h5>
+                            <h5 class="mb-0">Nom de l'Instructeur</h5>
                             <small>Designation</small>
                         </div>
                     </div>
@@ -286,16 +286,16 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="text-white mb-3">Quick Link</h4>
-                    <a class="btn btn-link" href="">About Us</a>
-                    <a class="btn btn-link" href="">Contact Us</a>
-                    <a class="btn btn-link" href="">Privacy Policy</a>
-                    <a class="btn btn-link" href="">Terms & Condition</a>
-                    <a class="btn btn-link" href="">FAQs & Help</a>
+                    <h4 class="text-white mb-3">Lien Rapide</h4>
+                    <a class="btn btn-link" href="">À Propos de Nous</a>
+                    <a class="btn btn-link" href="">Contactez Nous</a>
+                    <a class="btn btn-link" href="">Politique de Confidentialité</a>
+                    <a class="btn btn-link" href="">Termes & Conditions</a>
+                    <a class="btn btn-link" href="">FAQs & Aide</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-3">Contact</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Rue, New York, USA</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>elearning@example.com</p>
                     <div class="d-flex pt-2">
@@ -306,10 +306,10 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <h4 class="text-white mb-3">Bulletin d'Information</h4>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Votre email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">S'inscrire</button>
                     </div>
                 </div>
             </div>
@@ -318,14 +318,14 @@
             <div class="copyright">
                 <div class="row">
                     <div class="text-center">
-                        &copy; <a class="border-bottom" href="#">E-lerning</a>, All Right Reserved. 2024-2025
+                        &copy; <a class="border-bottom" href="#">E-lerning</a>, Tous Droits Réservés. 2024-2025
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    
+
     <!-- Footer End -->
 
 

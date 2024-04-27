@@ -153,12 +153,14 @@ public function indexGroupList()
 
 public function indexTeacher()
 {
-    $subjects=Subject::all();
     $departments=Department::all();
     $fields=Field::all();
     $users = User::with('field')->where('role_id', 3)->get();
-
-    return view('admin.users.teachers', ['users' => $users,'fields'=>$fields,'departments'=>$departments,'subjects'=>$subjects]);
+    $allSubjects=Subject::all();
+    $subjects = Subject::whereDoesntHave('users', function ($query) {
+        $query->where('role_id', 3);
+    })->get();
+    return view('admin.users.teachers', ['users' => $users,'fields'=>$fields,'departments'=>$departments,'allSubjects'=>$allSubjects,'subjects'=>$subjects]);
 }
 
 
@@ -278,6 +280,7 @@ public function updateTeacher(Request $request, $id)
 
 
     $user = User::findOrFail($id);
+
     $user->name = $request->input('name');
     $user->last_name = $request->input('last_name');
     $user->address= $request->input('address');

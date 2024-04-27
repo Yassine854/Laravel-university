@@ -277,7 +277,7 @@
                                                             <select name="subjects[]" id="subjects" multiple size="5"
                                                                 class="selectpicker mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md text-black"
                                                                 data-width="100%" data-none-selected-text="Toutes les matiéres">
-                                                                @foreach ($subjects as $subject)
+                                                                @foreach ($allSubjects as $subject)
                                                                     <option value="{{ $subject->id }}" {{ $user->subjects->contains($subject->id) ? 'selected' : '' }}>{{ $subject->name }}</option>
                                                                 @endforeach
                                                             </select>
